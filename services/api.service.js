@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const getWeather = async (city) => { 
     const api = "https://api.openweathermap.org/data/2.5/weather" 
-    const token = await getKeyValue(TOKEN_DICTIONARY.token);
+    const token = process.env.token ?? await getKeyValue(TOKEN_DICTIONARY.token);
     if(!token) {
         throw new Error('API token not found');
     }
@@ -17,7 +17,7 @@ const getWeather = async (city) => {
             units:'metric'
         }
     })
-    console.log(response.data);
+    return response.data;
     
     // by https
 

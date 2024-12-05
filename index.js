@@ -15,22 +15,52 @@ const saveToken = async (token) => {
         printError('Error saving token', error)
     }
 }
+
+const saveCity = async (city) => {
+    if(!city.length) {
+        printError('City not found. City is required')
+        return;
+    }
+    try {
+        await saveKeyValue(TOKEN_DICTIONARY.city, city)
+        printSuccess('City saved successfully')
+    } catch (error) {
+        printError('Error saving city', error)
+    }
+}
+
+const getForcast = async () => {
+    try {
+        const city = process.env.city ?? (await getKeyValue(TOKEN_DICTIONARY.city))
+       const response = await getWeather(city);
+       console.log(response);
+    } catch (error) {
+        if (error?.response?.status == 404) {
+            printError('City not found')
+        } else if (error?.response?.status == 401) {
+            printError('Token is invalid')
+        } else {
+            printError(error.message)
+        }
+    }
+}
 const startCLI = () => {
     const args = getArgs(process.argv);
     console.log(args);
     if (args.h) {
         // help
-        printHelp()
+       return printHelp()
     }
     if (args.s) {
         // save city
+        return saveCity(args.s)
     }
     if (args.t) {
         // save token
         return saveToken(args.t)
     }
     // result
-    getWeather(process.env.CITY ?? "sho'rchi")
+    getForcast()
 }
 
 startCLI()
