@@ -1,4 +1,5 @@
 import getArgs from './helpers/argv.js'
+import { getWeather } from './services/api.service.js'
 import {printError, printHelp, printSuccess} from './services/log.service.js'
 import {getKeyValue, saveKeyValue, TOKEN_DICTIONARY} from './services/storage.service.js'
 
@@ -29,6 +30,7 @@ const startCLI = () => {
         return saveToken(args.t)
     }
     // result
+    getWeather("sho'rchi")
 }
 
 startCLI()
