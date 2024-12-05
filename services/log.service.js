@@ -19,7 +19,7 @@ const printHelp = () => {
 
 const printWeather = (res, icon) => {
     console.log(dedent`
-        ${chalk.bgGreenBright('WEATHER:')} City weather ${res.name}
+        ${chalk.bgYellowBright('WEATHER:')} City weather ${res.name}
         ${icon}  ${res.weather[0].description}
         Main: ${res.weather[0].main}
         Temperature: ${res.main.temp}°C  (feels like ${res.main.feels_like})°C
