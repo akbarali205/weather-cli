@@ -46,7 +46,6 @@ const getForcast = async () => {
 }
 const startCLI = () => {
     const args = getArgs(process.argv);
-    console.log(args);
     if (args.h) {
         // help
        return printHelp()
